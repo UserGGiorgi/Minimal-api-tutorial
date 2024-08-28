@@ -4,7 +4,7 @@ In this task, you must develop a minimal API application with ASP.NET Core.
 
 Estimated time to complete the task: 2 hours.
 
-The task requires [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) to be installed.
+The task requires [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) to be installed.
 
 
 ## Task Description
