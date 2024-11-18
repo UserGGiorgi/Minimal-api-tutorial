@@ -19,23 +19,23 @@ app.Run();
 
 static async Task<IResult> GetAllTodos(TodoDb db)
 {
-    return TypedResults.Ok(await db.Todos.Select(x => new TodoItemDTO(x)).ToArrayAsync());
+    return TypedResults.Ok(await db.Todos.Select(x => new TodoItemDto(x)).ToArrayAsync());
 }
 
 static async Task<IResult> GetCompleteTodos(TodoDb db)
 {
-    return TypedResults.Ok(await db.Todos.Where(t => t.IsComplete).Select(x => new TodoItemDTO(x)).ToListAsync());
+    return TypedResults.Ok(await db.Todos.Where(t => t.IsComplete).Select(x => new TodoItemDto(x)).ToListAsync());
 }
 
 static async Task<IResult> GetTodo(int id, TodoDb db)
 {
     return await db.Todos.FindAsync(id)
         is Todo todo
-            ? TypedResults.Ok(new TodoItemDTO(todo))
+            ? TypedResults.Ok(new TodoItemDto(todo))
             : TypedResults.NotFound();
 }
 
-static async Task<IResult> CreateTodo(TodoItemDTO todoItemDTO, TodoDb db)
+static async Task<IResult> CreateTodo(TodoItemDto todoItemDTO, TodoDb db)
 {
     var todoItem = new Todo
     {
@@ -46,12 +46,12 @@ static async Task<IResult> CreateTodo(TodoItemDTO todoItemDTO, TodoDb db)
     _ = db.Todos.Add(todoItem);
     _ = await db.SaveChangesAsync();
 
-    todoItemDTO = new TodoItemDTO(todoItem);
+    todoItemDTO = new TodoItemDto(todoItem);
 
     return TypedResults.Created($"/todoitems/{todoItem.Id}", todoItemDTO);
 }
 
-static async Task<IResult> UpdateTodo(int id, TodoItemDTO todoItemDTO, TodoDb db)
+static async Task<IResult> UpdateTodo(int id, TodoItemDto todoItemDTO, TodoDb db)
 {
     var todo = await db.Todos.FindAsync(id);
 
